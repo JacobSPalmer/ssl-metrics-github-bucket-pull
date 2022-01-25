@@ -1,8 +1,10 @@
 import subprocess
 from datetime import datetime
 import os
-import progress_win_patch
-progress = progress_win_patch.getpatchedprogress()
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+# import progress_win_patch
+# progress = progress_win_patch.getpatchedprogress()
 from progress.bar import Bar
 
 ##How To Use
@@ -20,7 +22,7 @@ from progress.bar import Bar
 ##Read in environment token
 
 with open('token.txt') as TOKEN:
-    token = TOKEN.readline()
+    token = TOKEN.readline().strip()
 
 ##Read in and prep the repo list
 
@@ -31,7 +33,7 @@ with open('repo_list.txt') as REPOS:
 repo_list = list(set(repo_list))
 
 ##Template Command
-comm_template = "ssl-metrics-github-issues-collect -r {} -t {} -s {}"
+comm_template = "ssl-metrics-github-issues-collect -r {} -t {} -o {}"
 comm_list = []
 
 ##Generate the commands
